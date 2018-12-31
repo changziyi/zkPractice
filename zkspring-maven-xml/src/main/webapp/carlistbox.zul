@@ -1,0 +1,26 @@
+<window id="win" title="Car List" border="normal"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('win') @init('car.vm.CarVm')">
+	<!--     把CarVm這個class指定給識別字win。 -->
+	<listbox model="@load(win.cars)" checkmark="true"
+		mold="paging" pageSize="9">
+
+		<listhead>
+			
+			<listheader width="32px" />
+			<listheader label="cnumber" align="center"
+				sort="auto(model)" />
+			<listheader label="cname" align="center" sort="auto(make)" />
+			<listheader label="ccolor" align="center" sort="auto(type)" />
+		</listhead>
+		<template name="model">
+			<listitem>
+				<listcell />
+				<listcell label="${each.cnumber}" />
+				<listcell label="${each.cname}" />
+				<listcell label="${each.ccolor}" />
+
+			</listitem>
+		</template>
+	</listbox>
+</window>

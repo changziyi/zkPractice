@@ -1,0 +1,18 @@
+<div apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('car.vm.CarVm')">
+	/*-- -------------------------query-------------------------- */
+	<vlayout>
+		<label value="queryone" />
+		<textbox value="@bind(vm.carvo.cnumber)" />
+		<button label="search" onClick="@command('retrieveCarById')" />
+		<textbox value="@load(vm.carvo.cname)" />
+	</vlayout>
+<!-- ******************insert*********************** -->
+	 <vlayout>
+		<label value="insert" />
+		<textbox value="@save(vm.carvo.cname)" />
+		<textbox value="@save(vm.carvo.ccolor)" />
+		<button label="insert" onClick="@command('insert')" />
+	</vlayout>
+
+</div>

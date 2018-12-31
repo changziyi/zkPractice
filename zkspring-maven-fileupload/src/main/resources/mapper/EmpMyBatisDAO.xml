@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="emp.model.EmpDAO_interface">
+	<sql id="INSERT">
+		
+		ename,
+		job,
+		hiredate,
+		sal,
+		comm,
+		deptno
+		
+	</sql>
+	<sql id="UPDATE">
+
+		ename = #{empVO.ename} ,
+		job= #{empVO.job},
+		hiredate= #{empVO.hiredate},
+		sal= #{empVO.sal},
+		comm= #{empVO.comm},
+		deptno= #{empVO.deptno}
+		
+	</sql>
+
+
+	<resultMap type="emp.model.EmpVO"
+		id="EmpObject">
+		<id column="empno" property="empno" />
+		<result column="ename" property="ename" />
+		<result column="job" property="job" />
+		<result column="hiredate" property="hiredate" />
+		<result column="sal" property="sal" />
+		<result column="comm" property="comm" />
+		<result column="deptno" property="deptno" />
+	</resultMap>
+
+	<select id="getAll" resultMap="EmpObject">
+		select * from emp2
+	</select>
+
+	<insert id="insert" parameterType="emp.model.EmpVO">
+		insert into
+		emp2(
+		<include refid="INSERT" />
+		)
+		values (
+		 #{empVO.ename}, #{empVO.job},
+		#{empVO.hiredate},
+		#{empVO.sal},#{empVO.comm}, #{empVO.deptno}
+		)
+	</insert>
+	<update id="update" parameterType="emp.model.EmpVO">
+		Update
+		emp2 set
+		<include refid="UPDATE" />
+		
+		where empno = #{empVO.empno}
+		
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM
+		emp2 
+		where empno = #{empno}
+		
+	</delete>
+	<select id="findByPrimaryKey" resultMap="EmpObject" parameterType="Integer">
+		select * from emp2 where empno = #{empno}
+	</select>
+
+</mapper>

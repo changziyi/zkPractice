@@ -1,0 +1,85 @@
+<window id="emp" title="Car List" border="normal"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('emp') @init('emp.vm.EmpVm')">
+	<!--     把CarVm這個class指定給識別字win。 -->
+	<separator bar="true" />
+	<!-- *************query *****************-->
+	
+	<label value="依員編查詢:"/>
+	<separator/>
+	<textbox value="@bind(emp.empvo.empno)" />
+	<label value="顯示:"/>
+	<textbox cols="10" value="@load(emp.empvo.empno)" />
+	<textbox cols="10" value="@load(emp.empvo.ename)" />
+	<textbox cols="10"
+		value="@load(emp.empvo.sal) @converter('formatedNumber', format='###,##0.00')" />
+	<textbox
+		value="@load(emp.empvo.hiredate) @converter('formatedDate', format='yyyy年MM月dd日')" />
+	<separator/>
+	<button label="search" onClick="@command('getOneEmp')" />
+
+	<!-- ************* insert ***************** -->
+	<separator/>
+	<label value="新增一筆資料" />
+	<separator/>
+	<label value="姓名:" />
+	<textbox value="@save(emp.empvo.ename)" constraint="no empty" />
+	<label value="薪水:" />
+	<textbox value="@save(emp.empvo.sal) @converter('formatedNumber', format='###,##0.00')" constraint="no empty" />
+	<label value="雇用日:"  />
+<!-- 	<textbox -->
+<!-- 		value="@save(emp.empvo.hiredate) " constraint="no empty" /> -->
+<!-- 	<datebox id="db0" cols="12"  value="@bind(emp.empvo.hiredate) @converter(emp, format='yyyy年MM月dd日')"  />		 -->
+	<datebox id="db0" cols="12" format="yyyy年MM月dd日"  value="@save(emp.empvo.hiredate)"  />	
+	<separator/>
+	<label value="工作:" />
+	<textbox value="@save(emp.empvo.job) " constraint="no empty" />
+	<label value="comm:" />
+	<textbox value="@save(emp.empvo.comm)" constraint="no empty" />
+	<label value="部門:" />
+	<textbox value="@save(emp.empvo.deptno)" constraint="no empty" />
+	<separator/>
+	<button label="insert" onClick="@command('addEmp')" />
+
+	<!-- ************* delete ***************** -->
+<!-- 	刪除一筆資料: -->
+<!-- 	<label value="insert" /> -->
+<!-- 	<textbox value="@save(emp.empvo.empno)" /> -->
+<!-- 	<button label="delete" onClick="@command('deleteEmp')" /> -->
+
+	<listbox model="@load(emp.emps)" checkmark="true" mold="paging"
+		pageSize="9">
+
+
+		<!-- ************* queryall *****************-->
+<!-- 		員工列表: -->
+		<listhead>
+
+			<listheader width="32px" />
+			<listheader label="empno" align="center" sort="auto(model)" />
+			<listheader label="ename" align="center" sort="auto(make)" />
+			<listheader label="job" align="center" sort="auto(type)" />
+			<listheader label="hiredate" align="center"
+				sort="auto(model)" />
+			<listheader label="salary" align="center" sort="auto(make)" />
+			<listheader label="ecomm" align="center" sort="auto(type)" />
+			<listheader label="deptno" align="center" sort="auto(type)" />
+
+		</listhead>
+		<template name="model">
+			<listitem>
+				<listcell />
+				<listcell label="@load(each.empno)" />
+				<listcell label="${each.ename}" />
+				<listcell label="${each.job} " />
+				<listcell
+					label="@load(each.hiredate) @converter('formatedDate', format='yyyy年MM月dd日')" />
+				<listcell
+					label="@load(each.sal) @converter('formatedNumber', format='###,##0.00')" />
+				<listcell label
+				="${each.comm}" />
+				<listcell label="${each.deptno}" />
+			</listitem>
+		</template>
+	</listbox>
+</window>
